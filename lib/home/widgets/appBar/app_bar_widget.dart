@@ -1,14 +1,17 @@
 import 'package:dev_quiz/home/widgets/score_card/score_card_widget.dart';
+import 'package:dev_quiz/shared/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/app_gradients.dart';
 import '../../../core/app_text_styles.dart';
 
 class AppBarWidget extends PreferredSize {
-  AppBarWidget({super.key})
+  final UserModel user;
+
+  AppBarWidget({super.key, required this.user})
       : super(
           preferredSize: const Size.fromHeight(250),
-          child: Container(
+          child: SizedBox(
             height: 250,
             child: Stack(
               children: [
@@ -27,7 +30,7 @@ class AppBarWidget extends PreferredSize {
                         style: AppTextStyles.title,
                         children: [
                           TextSpan(
-                            text: "Gabriel!",
+                            text: user.name,
                             style: AppTextStyles.titleBold,
                           )
                         ],
@@ -37,17 +40,18 @@ class AppBarWidget extends PreferredSize {
                         height: 58,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                  "https://avatars.githubusercontent.com/u/170420229?v=4"),
+                            image: DecorationImage(
+                              image: NetworkImage(user.photoUrl),
                             )),
                       )
                     ],
                   ),
                 ),
-                const Align(
-                  alignment: Alignment(0, 1),
-                  child: ScoreCardWidget(),
+                Align(
+                  alignment: const Alignment(0, 1),
+                  child: ScoreCardWidget(
+                    percent: user.score / 100,
+                  ),
                 )
               ],
             ),

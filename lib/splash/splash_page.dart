@@ -1,3 +1,4 @@
+import 'package:dev_quiz/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../core/app_gradients.dart';
@@ -8,6 +9,15 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 2)).then((_) {
+      if (context.mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+      }
+    });
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(gradient: AppGradients.linear),
